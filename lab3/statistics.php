@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Statistics</title>
+    <title>Статистика сайту</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,7 +69,7 @@
 </head>
 <body>
 <?php
-// Database connection
+// Підключення до бази даних
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -79,45 +79,45 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    echo "Помилка підключення: " . $e->getMessage();
     exit;
 }
 
-// Statistics calculations
+// Розрахунок статистики
 echo "<div class='stats-container'>";
-echo "<h2>Site Statistics</h2>";
+echo "<h2>Статистика сайту</h2>";
 
-// 1. Total number of records in students table
+// 1. Загальна кількість записів у таблиці студентів
 $stmt = $conn->query("SELECT COUNT(*) as count FROM students");
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-echo "<div class='stat-item'>Total students: " . $result['count'] . "</div>";
+echo "<div class='stat-item'>Загальна кількість студентів: " . $result['count'] . "</div>";
 
-// 2. Total number of records in student_grades table
+// 2. Загальна кількість записів у таблиці оцінок
 $stmt = $conn->query("SELECT COUNT(*) as count FROM student_grades");
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-echo "<div class='stat-item'>Total grades recorded: " . $result['count'] . "</div>";
+echo "<div class='stat-item'>Загальна кількість оцінок: " . $result['count'] . "</div>";
 
-// 3. Records from last month in both tables
+// 3. Записи за останній місяць в обох таблицях
 $stmt = $conn->query("SELECT COUNT(*) as count FROM students WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)");
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-echo "<div class='stat-item'>New students in the last month: " . $result['count'] . "</div>";
+echo "<div class='stat-item'>Нових студентів за останній місяць: " . $result['count'] . "</div>";
 
 $stmt = $conn->query("SELECT COUNT(*) as count FROM student_grades WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)");
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-echo "<div class='stat-item'>New grades in the last month: " . $result['count'] . "</div>";
+echo "<div class='stat-item'>Нових оцінок за останній місяць: " . $result['count'] . "</div>";
 
-// 4. Last record from student_grades
+// 4. Останній запис з таблиці оцінок
 $stmt = $conn->query("SELECT sg.*, s.name, s.surname FROM student_grades sg 
                       JOIN students s ON sg.student_id = s.id 
                       ORDER BY sg.created_at DESC LIMIT 1");
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($result) {
-    echo "<div class='stat-item'>Latest grade: Student " . htmlspecialchars($result['name']) . " " . 
-         htmlspecialchars($result['surname']) . " got grade " . $result['grade'] . 
-         " in " . htmlspecialchars($result['subject']) . "</div>";
+    echo "<div class='stat-item'>Остання оцінка: Студент " . htmlspecialchars($result['name']) . " " . 
+         htmlspecialchars($result['surname']) . " отримав оцінку " . $result['grade'] . 
+         " з предмету " . htmlspecialchars($result['subject']) . "</div>";
 }
 
-// 5. Student with most grades
+// 5. Студент з найбільшою кількістю оцінок
 $stmt = $conn->query("SELECT s.name, s.surname, COUNT(sg.id) as grade_count 
                       FROM students s 
                       LEFT JOIN student_grades sg ON s.id = sg.student_id 
@@ -126,22 +126,22 @@ $stmt = $conn->query("SELECT s.name, s.surname, COUNT(sg.id) as grade_count
                       LIMIT 1");
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($result) {
-    echo "<div class='stat-item'>Student with most grades: " . 
+    echo "<div class='stat-item'>Студент з найбільшою кількістю оцінок: " . 
          htmlspecialchars($result['name']) . " " . htmlspecialchars($result['surname']) . 
-         " (" . $result['grade_count'] . " grades)</div>";
+         " (" . $result['grade_count'] . " оцінок)</div>";
 }
 echo "</div>";
 
-// Search functionality
+// Функціонал пошуку
 echo "<div class='search-container'>";
-echo "<h2>Search</h2>";
+echo "<h2>Пошук</h2>";
 ?>
 
 <form method="GET">
-    <input type="text" name="keyword" placeholder="Search keyword" value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
-    <input type="number" name="grade_from" placeholder="Grade from" value="<?php echo isset($_GET['grade_from']) ? htmlspecialchars($_GET['grade_from']) : ''; ?>">
-    <input type="number" name="grade_to" placeholder="Grade to" value="<?php echo isset($_GET['grade_to']) ? htmlspecialchars($_GET['grade_to']) : ''; ?>">
-    <input type="submit" value="Search">
+    <input type="text" name="keyword" placeholder="Ключове слово для пошуку" value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+    <input type="number" name="grade_from" placeholder="Оцінка від" value="<?php echo isset($_GET['grade_from']) ? htmlspecialchars($_GET['grade_from']) : ''; ?>">
+    <input type="number" name="grade_to" placeholder="Оцінка до" value="<?php echo isset($_GET['grade_to']) ? htmlspecialchars($_GET['grade_to']) : ''; ?>">
+    <input type="submit" value="Шукати">
 </form>
 
 <?php
@@ -174,7 +174,7 @@ if (isset($_GET['keyword']) || (isset($_GET['grade_from']) && isset($_GET['grade
         
         if ($results) {
             echo "<table>";
-            echo "<tr><th>Name</th><th>Surname</th><th>Group</th><th>Subject</th><th>Grade</th><th>Teacher</th><th>Date</th></tr>";
+            echo "<tr><th>Ім'я</th><th>Прізвище</th><th>Група</th><th>Предмет</th><th>Оцінка</th><th>Викладач</th><th>Дата</th></tr>";
             foreach ($results as $row) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['name']) . "</td>";
@@ -188,7 +188,7 @@ if (isset($_GET['keyword']) || (isset($_GET['grade_from']) && isset($_GET['grade
             }
             echo "</table>";
         } else {
-            echo "<p>No results found.</p>";
+            echo "<p>Результатів не знайдено.</p>";
         }
     }
 }
