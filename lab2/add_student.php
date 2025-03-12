@@ -35,8 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="nav-links">
-        <a href="index.php">← Повернутися до списку оцінок</a>
-        <a href="students.php">Список студентів</a>
+        <a href="students.php">← Повернутися до Списку студентів</a>
     </div>
 
     <h2>Додати нового студента</h2>
