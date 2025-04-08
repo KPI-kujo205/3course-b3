@@ -1,0 +1,109 @@
+{{> header}}
+    <div class="text-center">
+        <h1 class="mb-5">{{title}}</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="weather-card" style="background-color: var(--secondary); border: 4px solid var(--dark); box-shadow: 8px 8px 0 var(--dark); padding: 30px; color: var(--light); position: relative;">
+                    
+                    <!-- City Name -->
+                    <h2 style="color: var(--light); font-size: 1.5rem; margin-bottom: 30px;">{{city}}</h2>
+                    
+                    <!-- Main Weather Display -->
+                    <div style="background-color: var(--primary); border: 4px solid var(--dark); padding: 20px; margin-bottom: 30px;">
+                        <!-- Weather Icon (with fallback) -->
+                        <div class="mb-4">
+                            {{#if (eq description "clear sky")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/3222/3222800.png" alt="Ясно" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "few clouds")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Трохи хмарно" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "scattered clouds")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="Розсіяні хмари" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "broken clouds")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="Розірвані хмари" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "shower rain")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/3351/3351979.png" alt="Дощ" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "rain")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/3767/3767039.png" alt="Дощ" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "thunderstorm")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/1959/1959338.png" alt="Гроза" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "snow")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/642/642102.png" alt="Сніг" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else if (eq description "mist")}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/4005/4005901.png" alt="Туман" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{else}}
+                                <img src="https://cdn-icons-png.flaticon.com/512/1779/1779940.png" alt="Погода" style="width: 80px; height: 80px; border: 3px solid var(--dark);">
+                            {{/if}}
+                        </div>
+                        
+                        <!-- Temperature -->
+                        <div style="background-color: var(--accent); border: 3px solid var(--dark); color: var(--dark); font-family: 'Press Start 2P', cursive; display: inline-block; padding: 15px; margin: 10px 0;">
+                            <span style="font-size: 2rem;">{{temperature}}°C</span>
+                        </div>
+                        
+                        <!-- Weather Description -->
+                        <p class="text-capitalize" style="font-size: 1.5rem; margin-top: 15px;">
+                            {{#if (eq description "clear sky")}}
+                                Ясно
+                            {{else if (eq description "few clouds")}}
+                                Малохмарно
+                            {{else if (eq description "scattered clouds")}}
+                                Розсіяні хмари
+                            {{else if (eq description "broken clouds")}}
+                                Хмарно з проясненнями
+                            {{else if (eq description "shower rain")}}
+                                Злива
+                            {{else if (eq description "rain")}}
+                                Дощ
+                            {{else if (eq description "thunderstorm")}}
+                                Гроза
+                            {{else if (eq description "snow")}}
+                                Сніг
+                            {{else if (eq description "mist")}}
+                                Туман
+                            {{else}}
+                                {{description}}
+                            {{/if}}
+                        </p>
+                    </div>
+                    
+                    <!-- Weather Details -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div style="background-color: var(--light); border: 3px solid var(--dark); color: var(--dark); padding: 15px;">
+                                <h3 style="font-size: 0.8rem; color: var(--dark);">ВОЛОГІСТЬ</h3>
+                                <p style="font-size: 1.8rem; margin-bottom: 0;">{{humidity}}%</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="background-color: var(--light); border: 3px solid var(--dark); color: var(--dark); padding: 15px;">
+                                <h3 style="font-size: 0.8rem; color: var(--dark);">ВІТЕР</h3>
+                                <p style="font-size: 1.8rem; margin-bottom: 0;">{{windSpeed}} м/с</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-5">
+                    <a href="/" class="btn btn-lg" style="width: 100%;">
+                        НАЗАД ДО МЕНЮ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const weatherCard = document.querySelector('.weather-card');
+            weatherCard.style.transform = 'translateY(20px)';
+            weatherCard.style.opacity = '0';
+            
+            setTimeout(() => {
+                weatherCard.style.transition = 'all 0.4s ease-out';
+                weatherCard.style.transform = 'translateY(0)';
+                weatherCard.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+{{> footer}} 

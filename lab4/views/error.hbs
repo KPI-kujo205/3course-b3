@@ -1,0 +1,73 @@
+{{> header}}
+    <div class="text-center my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="error-card" style="background-color: var(--primary); border: 4px solid var(--dark); box-shadow: 8px 8px 0 var(--dark); padding: 30px; margin-bottom: 40px;">
+                    
+                    <!-- Error Icon -->
+                    <div class="mb-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1138/1138038.png" alt="Помилка" style="width: 100px; height: 100px; border: 3px solid var(--dark); padding: 5px; background-color: var(--light);">
+                    </div>
+                    
+                    <!-- Error Title -->
+                    <h1 style="color: var(--light); font-size: 1.5rem; margin-bottom: 20px;">
+                        {{#if (eq title "Error")}}
+                            Помилка
+                        {{else if (eq title "404 Not Found")}}
+                            404 Сторінку не знайдено
+                        {{else if (eq title "Server Error")}}
+                            Помилка сервера
+                        {{else}}
+                            {{title}}
+                        {{/if}}
+                    </h1>
+                    
+                    <!-- Error Message -->
+                    <div style="background-color: var(--light); border: 3px solid var(--dark); padding: 15px; margin-bottom: 30px; color: var(--dark); font-size: 1.2rem;">
+                        {{#if (eq message "City not found or weather data unavailable")}}
+                            Місто не знайдено або дані про погоду недоступні
+                        {{else if (eq message "Unable to get weather data for your location")}}
+                            Неможливо отримати дані про погоду для вашого місцезнаходження
+                        {{else if (eq message "The page you requested was not found")}}
+                            Сторінку, яку ви запитали, не знайдено
+                        {{else if (eq message "Something went wrong on the server")}}
+                            Щось пішло не так на сервері
+                        {{else}}
+                            {{message}}
+                        {{/if}}
+                    </div>
+                    
+                    <!-- Back Button -->
+                    <a href="/" class="btn" style="width: 100%; font-size: 1rem;">
+                        ПОВЕРНУТИСЯ НА ГОЛОВНУ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorCard = document.querySelector('.error-card');
+            errorCard.style.transform = 'translateY(20px)';
+            errorCard.style.opacity = '0';
+            
+            setTimeout(() => {
+                errorCard.style.transition = 'all 0.4s ease-out';
+                errorCard.style.transform = 'translateY(0)';
+                errorCard.style.opacity = '1';
+            }, 100);
+            
+            // Add "jolt" effect
+            setTimeout(() => {
+                errorCard.style.transform = 'translate(-5px, -5px)';
+                errorCard.style.boxShadow = '13px 13px 0 var(--dark)';
+                
+                setTimeout(() => {
+                    errorCard.style.transform = 'translate(0px, 0px)';
+                    errorCard.style.boxShadow = '8px 8px 0 var(--dark)';
+                }, 100);
+            }, 500);
+        });
+    </script>
+{{> footer}} 

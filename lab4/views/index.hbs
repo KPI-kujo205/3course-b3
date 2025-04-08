@@ -1,0 +1,60 @@
+{{> header}}
+    <div class="text-center mb-5">
+        <h1 class="mb-5">ПЕРЕВІРКА ПОГОДИ</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8 mb-5">
+                <div style="background-color: var(--accent); border: 4px solid var(--dark); box-shadow: 8px 8px 0 var(--dark); padding: 20px;">
+                    <h2 style="font-size: 1.2rem;">ВИБЕРІТЬ МІСТО</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            {{#each cities}}
+            <div class="col-md-4 col-lg-3 mb-4">
+                {{#if (eq this "Моє місцезнаходження")}}
+                <a href="/weather" class="text-decoration-none">
+                    <div class="city-card" style="background-color: var(--primary); border: 4px solid var(--dark); box-shadow: 6px 6px 0 var(--dark); padding: 20px; color: var(--light); transition: all 0.1s ease;">
+                        <h3 style="font-size: 1rem; margin-bottom: 15px; color: var(--light);">{{this}}</h3>
+                        <div class="btn" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">
+                            ПЕРЕВІРИТИ
+                        </div>
+                    </div>
+                </a>
+                {{else}}
+                <a href="/weather/{{this}}" class="text-decoration-none">
+                    <div class="city-card" style="background-color: var(--secondary); border: 4px solid var(--dark); box-shadow: 6px 6px 0 var(--dark); padding: 20px; color: var(--light); transition: all 0.1s ease;">
+                        <h3 style="font-size: 1rem; margin-bottom: 15px; color: var(--light);">{{this}}</h3>
+                        <div class="btn" style="width: 100%; margin-top: 10px; font-size: 0.8rem;">
+                            ПЕРЕВІРИТИ
+                        </div>
+                    </div>
+                </a>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.city-card').forEach(card => {
+            card.addEventListener('mouseover', function() {
+                this.style.transform = 'translate(-4px, -4px)';
+                this.style.boxShadow = '10px 10px 0 #111111';
+            });
+            card.addEventListener('mouseout', function() {
+                this.style.transform = 'translate(0, 0)';
+                this.style.boxShadow = '6px 6px 0 #111111';
+            });
+            card.addEventListener('mousedown', function() {
+                this.style.transform = 'translate(2px, 2px)';
+                this.style.boxShadow = '4px 4px 0 #111111';
+            });
+            card.addEventListener('mouseup', function() {
+                this.style.transform = 'translate(-4px, -4px)';
+                this.style.boxShadow = '10px 10px 0 #111111';
+            });
+        });
+    </script>
+{{> footer}} 
