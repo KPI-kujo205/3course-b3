@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --accent-color: #FFE66D;
+            --text-color: #2C3E50;
+            --shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            background-color: #F7F7F7;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--primary-color) !important;
+            border-bottom: 4px solid var(--text-color);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .card {
+            background-color: white;
+            border: 4px solid var(--text-color);
+            border-radius: 0;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+            margin-bottom: 2rem;
+        }
+
+        .card:hover {
+            transform: translate(-4px, -4px);
+        }
+
+        .btn {
+            border: 3px solid var(--text-color);
+            border-radius: 0;
+            font-weight: bold;
+            padding: 0.5rem 1.5rem;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+
+        .btn-danger {
+            background-color: #FF6B6B;
+            color: white;
+        }
+
+        .form-control {
+            border: 3px solid var(--text-color);
+            border-radius: 0;
+            padding: 0.75rem;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert {
+            border: 3px solid var(--text-color);
+            border-radius: 0;
+            box-shadow: var(--shadow);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-title {
+            color: var(--primary-color);
+        }
+
+        .card-subtitle {
+            color: var(--secondary-color);
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Notes App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/add-post">Add Note</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api/posts">JSON API</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <%- body %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
